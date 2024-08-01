@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Product Selection</title>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="stockit.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+    
+<body>
+    <section id="header">
+        <div id="name">
+            <h1 class="logo">Khadi<span>Mart.</span></h1>
+        </div>
+        <div id="searchbar">
+            <form>
+                <input type="text" placeholder="Search products">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <div>
+            <ul id="navbar-right">
+                <li><a href="admin_dash.php">Home</a></li>
+            </ul>
+        </div>
+    </section>
+    <form id="productForm">
+        <label for="category">Select Category:</label>
+        <select id="category" name="category">
+            <option value="men">Men</option>
+            <option value="women">Women</option>
+            <option value="kid">Kid</option>
+        </select>
+
+        <!-- Separate subcategory dropdowns for each category -->
+        <div id="subcategory-men" class="subcategory">
+            <label for="men-subcategory">Select Subcategory:</label>
+            <select id="men-subcategory" name="men-subcategory">
+                <option value="pant">Pant</option>
+                <option value="shirt">Shirt</option>
+                <option value="kurta">Kurta</option>
+            </select>
+        </div>
+
+        <div id="subcategory-women" class="subcategory" style="display: none;">
+            <label for="women-subcategory">Select Subcategory:</label>
+            <select id="women-subcategory" name="women-subcategory">
+                <option value="saree">Saree</option>
+                <option value="dupatta">Dupatta</option>
+                <option value="kurti">Kurti</option>
+            </select>
+        </div>
+
+        <div id="subcategory-kid" class="subcategory" style="display: none;">
+            <label for="kid-subcategory">Select Subcategory:</label>
+            <select id="kid-subcategory" name="kid-subcategory">
+                <option value="pant">Pant</option>
+                <option value="shirt">Shirt</option>
+                <option value="frock">Frock</option>
+            </select>
+        </div>
+
+        <input type="submit" value="Show Products">
+    </form>
+
+    <div id="productTable"></div>
+
+    <script>
+        $(document).ready(function() {
+            // Show the appropriate subcategory dropdown based on the selected category
+            $('#category').change(function() {
+                const selectedCategory = $(this).val();
+                $('.subcategory').hide(); // Hide all subcategory dropdowns
+                $(`#subcategory-${selectedCategory}`).show(); // Show the selected subcategory dropdown
+            });
+        
+            // Handle form submission
+            $('#productForm').submit(function(event) {
+                event.preventDefault();
+        
+                const category = $('#category').val();
+                let subcategory;
+        
+                // Determine the selected subcategory based on the category
+                switch (category) {
+                    case 'men':
+                        subcategory = $('#men-subcategory').val();
+                        break;
+                    case 'women':
+                        subcategory = $('#women-subcategory').val();
+                        break;
+                    case 'kid':
+                        subcategory = $('#kid-subcategory').val();
+                        break;
+                }
+                
+                // Fetch and display data from the server for the selected category
+                $.ajax({
+                    type: 'POST',
+                    url: `${category}_stock.php`, // Dynamically select the PHP file based on the category
+                    data: { category: category, subcategory: subcategory },
+                    success: function(response) {
+                        $('#productTable').html(response); // Replace the content each time
+                    }
+                });
+            });
+        
+            // Trigger change event to show the initial subcategory dropdown
+            $('#category').change();
+        });
+    </script>
+</body>
+</html>

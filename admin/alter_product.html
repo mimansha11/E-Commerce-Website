@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="stylealter.css">
+</head>
+<body>
+<section id="header">
+        <div id="name">
+            <h1 class="logo">Khadi<span>Mart.</span></h1>
+        </div>
+        
+        <div id="searchbar">
+            <form>
+                <input type="text" placeholder="Search products">
+                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+            </form>
+        </div>
+        <div>
+            <ul id="navbar-right">
+                <li><a href="admin_dash.php">Home</a></li>
+            </ul>
+        </div>
+    </section>
+    <div class="container">
+        <h2>Update Product</h2>
+        <form id="productForm" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productID">Product ID:</label>
+                <input type="text" name="productID" id="productID" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Product Category:</label>
+                <select name="productCategory" id="productCategory" required>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                    <option value="kid">Kid</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productSubcategory">Product Subcategory:</label>
+                <input type="text" name="productSubcategory" id="productSubcategory" required>
+            </div>
+
+            <div class="form-group">
+                <label for="updatedProductName">Updated Product Name:</label>
+                <input type="text" name="updatedProductName" id="updatedProductName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="updatedProductPrice">Updated Product Price:</label>
+                <input type="number" name="updatedProductPrice" id="updatedProductPrice" required>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Update Product">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the form data
+            var productID = document.getElementById('productID').value.trim();
+            var productCategory = document.getElementById('productCategory').value.trim().toLowerCase();
+            var productSubcategory = document.getElementById('productSubcategory').value.trim().toLowerCase();
+            var updatedProductName = document.getElementById('updatedProductName').value.trim();
+            var updatedProductPrice = document.getElementById('updatedProductPrice').value.trim();
+
+            // Determine the form action based on category and subcategory
+            var actionUrl = '';
+
+            if (productCategory === 'men' && (productSubcategory === 'shirt' || productSubcategory === 'kurta' || productSubcategory === 'pant')) {
+                actionUrl = 'alter_men.php';
+            } else if (productCategory === 'women' && (productSubcategory === 'dupatta' || productSubcategory === 'kurti' || productSubcategory === 'saree')) {
+                actionUrl = 'alter_women.php';
+            } else if (productCategory === 'kid' && (productSubcategory === 'frock' || productSubcategory === 'pant' || productSubcategory === 'shirt')) {
+                actionUrl = 'alter_kid.php';
+            } else {
+                alert('Invalid category or subcategory.');
+                return; // Prevent form submission if the category or subcategory is invalid
+            }
+
+            // Create a new form for updating
+            var updateForm = document.createElement('form');
+            updateForm.method = 'post';
+            updateForm.action = actionUrl;
+
+            // Add input fields for data to be updated
+            var productIDInput = document.createElement('input');
+            productIDInput.type = 'hidden';
+            productIDInput.name = 'productID';
+            productIDInput.value = productID;
+
+            var updatedProductNameInput = document.createElement('input');
+            updatedProductNameInput.type = 'hidden';
+            updatedProductNameInput.name = 'updatedProductName';
+            updatedProductNameInput.value = updatedProductName;
+
+            var updatedProductPriceInput = document.createElement('input');
+            updatedProductPriceInput.type = 'hidden';
+            updatedProductPriceInput.name = 'updatedProductPrice';
+            updatedProductPriceInput.value = updatedProductPrice;
+
+            // Append input fields to the form
+            updateForm.appendChild(productIDInput);
+            updateForm.appendChild(updatedProductNameInput);
+            updateForm.appendChild(updatedProductPriceInput);
+
+            // Append the form to the body and submit it
+            document.body.appendChild(updateForm);
+            updateForm.submit();
+        });
+    </script>
+</body>
+</html>

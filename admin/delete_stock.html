@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style_del.css">
+</head>
+<body>
+<section id="header">
+<div id="name">
+    <h1 class="logo">Khadi<span>Mart.</span></h1>
+</div>
+
+<div id="searchbar">
+    <form>
+        <input type="text" placeholder="Search products">
+        <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+    </form>
+</div>
+<div>
+    <ul id="navbar-right">
+        <li><a href="admin_dash.php">Home</a></li>
+    </ul>
+</div>
+</section>
+    <div class="container">
+        <h2>Delete Product</h2>
+        <form id="productForm" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productID">Product ID:</label>
+                <input type="text" name="productID" id="productID" required>
+            </div>
+
+            <div class="form-group">
+                <label for="productCategory">Product Category:</label>
+                <select name="productCategory" id="productCategory" required>
+                    <option value="men">Men</option>
+                    <option value="women">Women</option>
+                    <option value="kid">Kid</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="productSubcategory">Product Subcategory:</label>
+                <input type="text" name="productSubcategory" id="productSubcategory" required>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('productForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Get the selected category and subcategory
+            var category = document.getElementById('productCategory').value.trim().toLowerCase();
+            var subcategory = document.getElementById('productSubcategory').value.trim().toLowerCase();
+
+            // Determine the form action based on category and subcategory
+            var actionUrl = '';
+
+            if (category === 'men' && (subcategory === 'shirt' || subcategory === 'kurta' || subcategory === 'pant')) {
+                actionUrl = 'delete_men.php';
+            } else if (category === 'women' && (subcategory === 'dupatta' || subcategory === 'kurti' || subcategory === 'saree')) {
+                actionUrl = 'delete_women.php';
+            } else if (category === 'kid' && (subcategory === 'frock' || subcategory === 'pant' || subcategory === 'shirt')) {
+                actionUrl = 'delete_kid.php';
+            } else {
+                alert('Invalid category or subcategory.');
+                return; // Prevent form submission if the category or subcategory is invalid
+            }
+
+            // Create a new form for deletion
+            var deleteForm = document.createElement('form');
+            deleteForm.method = 'post';
+            deleteForm.action = actionUrl;
+
+            // Add input fields for data to be deleted
+            var productIDInput = document.createElement('input');
+            productIDInput.type = 'hidden';
+            productIDInput.name = 'productID';
+            productIDInput.value = document.getElementById('productID').value;
+
+            var productSubcategoryInput = document.createElement('input');
+            productSubcategoryInput.type = 'hidden';
+            productSubcategoryInput.name = 'productSubcategory';
+            productSubcategoryInput.value = subcategory;
+
+            // Append input fields to the form
+            deleteForm.appendChild(productIDInput);
+            deleteForm.appendChild(productSubcategoryInput);
+
+            // Append the form to the body and submit it
+            document.body.appendChild(deleteForm);
+            deleteForm.submit();
+        });
+    </script>
+</body>
+</html>

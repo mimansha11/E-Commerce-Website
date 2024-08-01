@@ -1,0 +1,141 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+#header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 8px;
+    background: #E3E6F3;
+    color: #050505;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+    z-index: 999;
+    position: sticky;
+    top: 0;
+}
+
+#name {
+    list-style-type: none;
+    font-style: oblique;
+}
+
+#name span {
+    color: #339a95;
+}
+
+#navbar-right {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+#navbar-right li {
+    padding: 0 20px;
+}
+
+#navbar-right li a {
+    color: #1a1a1a;
+    transition: 0.3s ease;
+    text-decoration: none;
+}
+
+#navbar-right li a:hover,
+#navbar-right li a:active {
+    text-decoration: underline;
+    color: #088178;
+}
+
+/* Search Bar Styles */
+#searchbar {
+    display: flex;
+    align-items: center;
+}
+
+#searchbar form {
+    display: flex;
+    margin: 0;
+}
+
+#searchbar input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    border-radius: 5px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+#searchbar input:hover {
+    border: 1px solid #155fb4;
+}
+
+#searchbar button {
+    padding: 10px;
+    background-color: #5c51ce;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+#searchbar button:hover {
+    background-color: #478ad7;
+}
+
+form {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+select, input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f2f2f2;
+}

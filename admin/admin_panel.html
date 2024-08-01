@@ -1,0 +1,70 @@
+<!--order Details-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="ad_panel.css">
+    <script>
+        function updateTable() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("table-body").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "admin_panel.php", true);
+            xhttp.send();
+        }
+
+        // Initially load data and set interval for updates
+        updateTable();
+        setInterval(updateTable, 30000);
+    </script>
+</head>
+<body>
+    <section id="header">
+        <div id="name">
+            <h1 class="logo">Khadi<span>Mart.</span></h1>
+        </div>
+        <div id="searchbar">
+        <form>
+            <input type="text" placeholder="Search products">
+            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </form>
+        </div>
+        <div>
+            <ul id="navbar-right">
+                <li><a href="admin_dash.php">Home</a></li>
+            </ul>
+        </div>
+    </section>
+    <div class="container">
+        <h2>Order Details</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Email</th>
+                        <th>Customer Phone</th>
+                        <th>Order Date</th>
+                        <th>Product ID</th>
+                        <th>Product Name</th>
+                        <th>Quantity</th>
+                        <th>Product Price</th>
+                        <th>Shipping Address</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- PHP code is dynamically inserted here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
